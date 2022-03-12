@@ -6,15 +6,15 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["server/VectorShopApp.API/src/Basket/Basket.API/Basket.API.csproj", "src/Basket/Basket.API/"]
-COPY ["server/VectorShopApp.API/src/Basket/Basket.Application/Basket.Application.csproj", "src/Basket/Basket.Application/"]
-COPY ["server/VectorShopApp.API/src/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "src/EventBusRabbitMQ/"]
-COPY ["server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain.csproj", "src/Basket/Basket.Domain/"]
-COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "src/Basket/Basket.Infrastructure/"]
+COPY ["server/VectorShopApp.API/src/Basket/Basket.API/Basket.API.csproj", "Basket/Basket.API/"]
+COPY ["server/VectorShopApp.API/src/Basket/Basket.Application/Basket.Application.csproj", "Basket/Basket.Application/"]
+COPY ["server/VectorShopApp.API/src/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "EventBusRabbitMQ/"]
+COPY ["server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain.csproj", "Basket/Basket.Domain/"]
+COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "Basket/Basket.Infrastructure/"]
 RUN dotnet restore "src/Basket/Basket.API/Basket.API.csproj"
 
 COPY server/VectorShopApp.API/src/Basket/Basket.API/ .
-WORKDIR "/src/src/Basket/Basket.API"
+WORKDIR "/src/Basket/Basket.API"
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build 
 
 FROM build AS publish
