@@ -19,7 +19,6 @@ COPY server/VectorShopApp.API/src/Ordering/Ordering.Application/ ./
 COPY server/VectorShopApp.API/src/Ordering/Ordering.Domain/ ./
 COPY server/VectorShopApp.API/src/Ordering/Ordering.Infrastructure/ ./
 
-CMD ASPNETCORE_URLS=http://*:$PORT Ordering.API.dll
 
 RUN dotnet build "Ordering.API.csproj" -c Release -o /app/build
 
@@ -29,4 +28,8 @@ RUN dotnet publish "Ordering.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ordering.API.dll"]
+
+#entry point for heroku
+CMD ASPNETCORE_URLS=http://*:$PORT  dotnet Ordering.API.dll  
+
+#ENTRYPOINT ["dotnet", "Ordering.API.dll"]
