@@ -19,23 +19,23 @@ services:
       context: .
       dockerfile: server/VectorShopApp.API/src/Basket/Basket.API/Dockerfile
 
-  # catalog.api:
-  #   image: ${DOCKER_REGISTRY-}catalogapi
-  #   build:
-  #     context: .
-  #     dockerfile: server/VectorShopApp.API/src/Catalog/Catalog.API/Dockerfile
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: server/VectorShopApp.API/src/Catalog/Catalog.API/Dockerfile
 
 
-  # ocelotapigateway:
-  #   image: ${DOCKER_REGISTRY-}ocelotapigateway
-  #   build:
-  #     context: .
-  #     dockerfile: server/VectorShopApp.API/src/ApiGateway/OcelotApiGateway/Dockerfile
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: server/VectorShopApp.API/src/ApiGateway/OcelotApiGateway/Dockerfile
 
 
-  # identity.api:
-  #   image: ${DOCKER_REGISTRY-}identityapi
-  #   build:
-  #     context: .
-  #     dockerfile: server/VectorShopApp.API/src/Authentication/Identity.API/Dockerfile
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: server/VectorShopApp.API/src/Authentication/Identity.API/Dockerfile
 
