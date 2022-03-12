@@ -15,9 +15,9 @@ RUN dotnet restore "Ordering//Ordering.API/Ordering.API.csproj"
 
 WORKDIR "/Ordering/Ordering.API"
 COPY server/VectorShopApp.API/src/Ordering/Ordering.API/ ./
-COPY server/VectorShopApp.API/src/Ordering/Ordering.Application/ ./
-COPY server/VectorShopApp.API/src/Ordering/Ordering.Domain/ ./
-COPY server/VectorShopApp.API/src/Ordering/Ordering.Infrastructure/ ./
+# COPY server/VectorShopApp.API/src/Ordering/Ordering.Application/ ./
+# COPY server/VectorShopApp.API/src/Ordering/Ordering.Domain/ ./
+# COPY server/VectorShopApp.API/src/Ordering/Ordering.Infrastructure/ ./
 
 CMD ASPNETCORE_URLS=http://*:$PORT Ordering.API.dll
 
