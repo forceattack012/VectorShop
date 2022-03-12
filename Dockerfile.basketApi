@@ -13,8 +13,8 @@ COPY ["server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain.csproj", 
 COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "Basket/Basket.Infrastructure/"]
 RUN dotnet restore "Basket/Basket.API/Basket.API.csproj" -r linux-arm64
 
-COPY server/VectorShopApp.API/src/Basket/Basket.API/ .
 WORKDIR "/src/Basket/Basket.API"
+COPY . .
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build -r linux-arm64 --self-contained false --no-restore
 
 FROM build AS publish
