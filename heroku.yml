@@ -1,4 +1,4 @@
 build: 
   docker: 
     web: Dockerfile
-    worker: .\server/VectorShopApp.API/src/Basket/Basket.API/Dockerfile
+    worker: ./server/VectorShopApp.API/src/Basket/Basket.API/Dockerfile
