@@ -10,7 +10,8 @@ COPY ["server/VectorShopApp.API/src/Ordering/Ordering.API/Ordering.API.csproj", 
 COPY ["server/VectorShopApp.API/src/Ordering/Ordering.Application/Ordering.Application.csproj", "Ordering/Ordering.Application/"]
 COPY ["server/VectorShopApp.API/src/Ordering/Ordering.Domain/Ordering.Domain.csproj", "Ordering/Ordering.Domain/"]
 COPY ["server/VectorShopApp.API/src/Ordering/Ordering.Infrastructure/Ordering.Infrastructure.csproj", "Ordering/Ordering.Infrastructure/"]
-RUN dotnet restore "Ordering/Ordering.API.csproj"
+RUN dotnet restore "Ordering//Ordering.API/Ordering.API.csproj"
+
 
 WORKDIR "/Ordering/Ordering.API"
 COPY server/VectorShopApp.API/src/Ordering/Ordering.API/ ./
