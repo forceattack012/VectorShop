@@ -29,7 +29,7 @@ namespace Basket.Infrastructure.RabbitMQ
             channel.BasicConsume(queue: EventBusConstants.BasketCartItemQueue, autoAck: true, consumer: consumer, noLocal: false, exclusive: false, arguments: null);
         }
 
-        private void ReceivedEventAsync(object? sender, BasicDeliverEventArgs e)
+        private void ReceivedEventAsync(object sender, BasicDeliverEventArgs e)
         {
             if(e.RoutingKey == EventBusConstants.BasketCartItemQueue)
             {
