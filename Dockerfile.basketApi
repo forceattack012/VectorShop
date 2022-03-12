@@ -15,10 +15,10 @@ RUN dotnet restore "Basket/Basket.API/Basket.API.csproj"
 
 WORKDIR "/src/Basket/Basket.API"
 COPY server/VectorShopApp.API/src/Basket/Basket.API ./
-COPY server/VectorShopApp.API/src/Basket/Basket.Application/Basket.Application ./
+COPY server/VectorShopApp.API/src/Basket/Basket.Application/ ./
 COPY server/VectorShopApp.API/src/EventBusRabbitMQ/EventBusRabbitMQ ./
 COPY server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain ./
-COPY server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj ./
+COPY server/VectorShopApp.API/src/Basket/Basket.Infrastructure/ ./
 
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
 
