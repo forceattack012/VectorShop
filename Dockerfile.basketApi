@@ -11,7 +11,7 @@ COPY ["server/VectorShopApp.API/src/Basket/Basket.Application/Basket.Application
 COPY ["server/VectorShopApp.API/src/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "src/EventBusRabbitMQ/"]
 COPY ["server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain.csproj", "src/Basket/Basket.Domain/"]
 COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "src/Basket/Basket.Infrastructure/"]
-RUN dotnet restore "src/Basket/Basket.API/Basket.API.csproj" -r linux-64
+RUN dotnet restore "src/Basket/Basket.API/Basket.API.csproj"
 COPY . .
 WORKDIR "/src/src/Basket/Basket.API"
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build -r linux-64
