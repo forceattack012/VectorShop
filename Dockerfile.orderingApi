@@ -19,6 +19,8 @@ COPY server/VectorShopApp.API/src/Ordering/Ordering.Application/ ./
 COPY server/VectorShopApp.API/src/Ordering/Ordering.Domain/ ./
 COPY server/VectorShopApp.API/src/Ordering/Ordering.Infrastructure/ ./
 
+CMD ASPNETCORE_URLS=http://*:$PORT Ordering.API.dll
+
 RUN dotnet build "Ordering.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -28,4 +30,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Ordering.API.dll"]
-CMD ["dotnet", "Ordering.API.dll"]
