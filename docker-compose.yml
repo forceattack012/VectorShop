@@ -19,5 +19,11 @@ services:
       context: .
       dockerfile: Dockerfile.basketApi
 
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Dockerfile.orderingApi
+
 
 
