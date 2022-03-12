@@ -13,7 +13,7 @@ COPY ["server/VectorShopApp.API/src/Basket/Basket.Domain/Basket.Domain.csproj", 
 COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "src/Basket/Basket.Infrastructure/"]
 RUN dotnet restore "src/Basket/Basket.API/Basket.API.csproj"
 COPY . .
-WORKDIR "/src/src/Basket/Basket.API"
+WORKDIR "/src/Basket/Basket.API"
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
