@@ -6,12 +6,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["./Basket.API/Basket.API.csproj", "Basket.API/"]
-COPY ["./Basket/Basket.Application/Basket.Application.csproj", "Basket.Application/"]
-COPY ["../EventBusRabbitMQ/EventBusRabbitMQ.csproj", "EventBusRabbitMQ/"]
-COPY ["./Basket.Domain/Basket.Domain.csproj", "Basket.Domain/"]
-COPY ["./Basket.Infrastructure/Basket.Infrastructure.csproj", "Basket.Infrastructure/"]
-RUN dotnet restore "./Basket/Basket.API/Basket.API.csproj"
+COPY ["src/Basket/Basket.API/Basket.API.csproj", "src/Basket/Basket.API/"]
+COPY ["src/Basket/Basket.Application/Basket.Application.csproj", "src/Basket/Basket.Application/"]
+COPY ["src/EventBusRabbitMQ/EventBusRabbitMQ.csproj", "src/EventBusRabbitMQ/"]
+COPY ["src/Basket/Basket.Domain/Basket.Domain.csproj", "src/Basket/Basket.Domain/"]
+COPY ["src/Basket/Basket.Infrastructure/Basket.Infrastructure.csproj", "src/Basket/Basket.Infrastructure/"]
+RUN dotnet restore "src/Basket/Basket.API/Basket.API.csproj"
 COPY . .
 WORKDIR "/src/src/Basket/Basket.API"
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
