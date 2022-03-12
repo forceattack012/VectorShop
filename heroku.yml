@@ -1,0 +1,3 @@
+build: 
+  docker: 
+    web: server\VectorShop.API\Basket\Basket.API\Dockerfile
