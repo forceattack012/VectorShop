@@ -1,3 +1,3 @@
 build: 
   docker: 
-    web: app/server/VectorShopApp.API/src/Basket/Basket.API/Dockerfile
+    web: Dockerfile.basketApi
