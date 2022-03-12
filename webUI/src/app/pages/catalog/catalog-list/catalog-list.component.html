@@ -1,0 +1,9 @@
+<div class="container flex flex-wrap justify-center items-center mx-auto px-2 py-2.5" *ngIf="products">
+  <div *ngFor="let product of products">
+    <app-catalog-card [product]="product"></app-catalog-card>
+  </div>
+</div>
+
+
+
+

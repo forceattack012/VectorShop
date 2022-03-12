@@ -1,0 +1,45 @@
+ <span class="relative inline-block">
+  <button type="button" id="dropdownBasketItems" data-dropdown-toggle="dropdown" class="relative flex font-blod hover:text-blue-700 py-2 px-4 rounded font-sm">
+    <div *ngIf="basket.totalItem > 0">
+      <span class="absolute top-0 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+        {{basket.totalItem}}
+      </span>
+    </div>
+    <i class="bi bi-basket fa-lg"></i>
+  </button>
+
+<!-- Dropdown menu -->
+  <div *ngIf="basket !== null">
+    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow" id="dropdown">
+      <ul aria-labelledby="dropdown" *ngFor="let item of basket.items let i = index">
+        <li class=" hover:bg-gray-100">
+          <div class="flex justify-between center block px-4 py-2">
+            <div>
+              <img class="self-center w-5 h-5 rounded-full mx-1" src="../../../../assets/notebook.jpg" alt="product image" />
+            </div>
+            <span class="text-sm text-gray-700 block px-4">{{item.name}}</span>
+            <span>
+              <button class="bi bi-trash fa hover:text-blue-700" (click)="removeBaskItemByIndex(basket.userName, i)"></button>
+            </span>
+          </div>
+          <div class="flex justify-between center block px-4 py-2">
+            <span class="text-sm text-gray-700 block px-4">{{item.quitity}}</span>
+            <span class="text-sm-1 block px-4">x</span>
+            <span class="text-sm text-gray-700 block px-4">{{item.price | numberWithComma}}</span>
+          </div>
+        </li>
+        <hr>
+        <li *ngIf="basket.totalItem === i+1">
+          <span class="text-sm text-gray-700 flex justify-end">ยอดรวม {{basket.total | numberWithComma}} บาท</span>
+        </li>
+        <hr>
+        <li *ngIf="basket.totalItem === i+1">
+          <div class="flex justify-center px-4 py-2">
+            <button class="text-white bg-blue-700 hover:bg-blue-900 focus:ring-3 focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">ดูตระกร้า</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</span>
+
