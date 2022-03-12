@@ -14,7 +14,7 @@ COPY ["server/VectorShopApp.API/src/Basket/Basket.Infrastructure/Basket.Infrastr
 RUN dotnet restore "Basket/Basket.API/Basket.API.csproj"
 
 WORKDIR "/src/Basket/Basket.API"
-COPY server/VectorShopApp.API/src/Basket/. .
+COPY . .
 RUN dotnet build "Basket.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
