@@ -17,6 +17,6 @@ services:
     image: ${DOCKER_REGISTRY-}basketapi
     build:
       context: .
-      dockerfile: server/VectorShopApp.API/src/Basket/Basket.API/Dockerfile
+      dockerfile: server/VectorShopApp.API/src/Basket/Dockerfile
 
 
