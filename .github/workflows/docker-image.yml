@@ -8,6 +8,7 @@ on:
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
   APP_NAME: ${{ 'vector-shop-ordering-api' }}
 
 jobs:
@@ -22,12 +23,14 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release server/VectorShopApp.API/VectorShopApp.API.sln
 
-      - name: Docker Login
-        run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-      - name: Publish
-        run: |
-          heroku container:push web worker --recursive Dockerfile.orderingApi -a $APP_NAME
-          heroku container:release web -a $APP_NAME
+      - name: Build, Push and Deploy to Heroku #set the whatever name you want to this step
+        id: heroku
+        uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0  # use the latest version of the action
+        with:
+          email: ${{ HEROKU_EMAIL }} # your heroku email
+          api_key: ${{ HEROKU_API_KEY }} # your  heroku api key
+          docker_compose_file: 'docker-compose.heroku.yml' # set the path to the folder where the docker-compose file is located
+          heroku_apps: '[{"imagename":"orderingApi","appname":${{APP_NAME}},"apptype":"web"}]' # List of Docker Image name, Heroku app and Heroku app type  
   test:
     runs-on: ubuntu-latest
     steps: 
