@@ -22,7 +22,7 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release server/VectorShopApp.API/VectorShopApp.API.sln
       - name: Docker Build
-        run: docker login Dockerfile.orderingApi --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+        run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com Dockerfile.orderingApi
       - name: Publish
         run: |
           heroku container: push web -a $APP_NAME
