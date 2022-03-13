@@ -9,12 +9,28 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Setup .NET 
+        uses: actions/setup-dotnet@v1
+      - name: Install dotnet ef
+        run: dotnet tool install --global dotnet-ef
+      - name: Build with dotnet
+        run: dotnet build --configuration Release server/VectorShopApp.API/VectorShopApp.API.sln
 
-    steps:
-    - uses: actions/checkout@v2
-    - name:  Build the stack
-      run: docker-compose -f docker-compose.yml build
-    - name: test up
-      run: docker-compose -f docker-compose.yml up -d
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@1
+      - name: run tests
+        run:  dotnet test server/VectorShopApp.API/VectorShopApp.API.sln --configuration Release
+
+    # steps:
+    # - uses: actions/checkout@v2
+    # - name:  Build the stack
+    #   run: docker-compose -f docker-compose.yml build
+    # - name: test up
+    #   run: docker-compose -f docker-compose.yml up -d
