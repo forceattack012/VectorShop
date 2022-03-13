@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
+    image: orderingapi
     build:
       context: .
       dockerfile: Dockerfile.orderingApi
