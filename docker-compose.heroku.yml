@@ -2,7 +2,10 @@ version: '3.4'
 
 services:
   basketdb:
-    image: redis
+    image: basketdb
+    build:
+      context: .
+      dockerfile: Dockerfile.redis
 
   ordering.api:
     image: orderingapi
