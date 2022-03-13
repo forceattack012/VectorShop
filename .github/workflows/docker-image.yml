@@ -27,10 +27,10 @@ jobs:
         id: heroku
         uses: snithyanantham/docker-compose-multiple-apps-heroku-deploy@v1.0  # use the latest version of the action
         with:
-          email: ${{ HEROKU_EMAIL }} # your heroku email
-          api_key: ${{ HEROKU_API_KEY }} # your  heroku api key
+          email: $HEROKU_EMAIL # your heroku email
+          api_key: $HEROKU_API_KEY # your  heroku api key
           docker_compose_file: 'docker-compose.heroku.yml' # set the path to the folder where the docker-compose file is located
-          heroku_apps: '[{"imagename":"orderingApi","appname":${{APP_NAME}},"apptype":"web"}]' # List of Docker Image name, Heroku app and Heroku app type  
+          heroku_apps: '[{"imagename":"orderingApi","appname":$APP_NAME,"apptype":"web"}]' # List of Docker Image name, Heroku app and Heroku app type  
   test:
     runs-on: ubuntu-latest
     steps: 
