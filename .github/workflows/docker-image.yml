@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  APP_NAME: ${{ 'netcore-react-heroku-app' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +21,12 @@ jobs:
         run: dotnet tool install --global dotnet-ef
       - name: Build with dotnet
         run: dotnet build --configuration Release server/VectorShopApp.API/VectorShopApp.API.sln
-
+      - name: Docker Build
+        run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+      - name: Publish
+        run: |
+          heroku container: push web -a $APP_NAME
+          heroku container: release web -a $APP_NAME
   test:
     runs-on: ubuntu-latest
     steps: 
@@ -26,6 +35,13 @@ jobs:
         uses: actions/setup-dotnet@v1
       - name: run tests
         run:  dotnet test server/VectorShopApp.API/VectorShopApp.API.sln --configuration Release
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Docker Build
+      - name: Publish
 
     # steps:
     # - uses: actions/checkout@v2
