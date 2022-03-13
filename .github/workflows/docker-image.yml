@@ -10,7 +10,7 @@ env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
   APP_NAME_BASKET_DB: ${{ 'vector-shop-basketdb' }}
-  APP_NAME_BASKET_API: ${{ vector-shop-basket-api }}
+  APP_NAME_BASKET_API: ${{ 'vector-shop-basket-api' }}
   APP_NAME_ORDER_API: ${{ 'vector-shop-ordering-api' }}
 
 jobs:
