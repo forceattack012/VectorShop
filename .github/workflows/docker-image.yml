@@ -8,7 +8,7 @@ on:
 
 env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-  APP_NAME: ${{ 'netcore-react-heroku-app' }}
+  APP_NAME: ${{ 'vector-shop-ordering-api' }}
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release server/VectorShopApp.API/VectorShopApp.API.sln
       - name: Docker Build
-        run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+        run: docker login Dockerfile.orderingApi --username=_ --password=$HEROKU_API_KEY registry.heroku.com
       - name: Publish
         run: |
           heroku container: push web -a $APP_NAME
