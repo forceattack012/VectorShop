@@ -72,11 +72,8 @@ app.MapDelete("/api/basket/{userName}", [Authorize] async (IMediator mediator, s
 });
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 app.UseAuthentication();
