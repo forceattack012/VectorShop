@@ -1,0 +1,89 @@
+version: '3.4'
+
+services:
+  catalogdb:
+   container_name: catalogdb
+   restart: always
+   volumes:
+    - ${WEBAPP_STORAGE_HOME}/site:/data/db
+   ports:
+    - "27017:27017"
+
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+        - "6379:6379"
+
+  authendb:
+    container_name: authendb
+    restart: always
+    ports:
+        - "1433:1433"
+    environment:
+        SA_PASSWORD: "Abcd1234"
+        ACCEPT_EULA: "Y"
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
+  catalog.api:
+    container_name: catalogapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CatalogDatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+      - "CatalogDatabaseSettings:DatabaseName=Catalogdb"
+      - "CatalogDatabaseSettings:CollectionName=Products"
+    depends_on:
+      - catalogdb
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+      - "8080:80"
+
+  basket.api:
+    container_name: basketapi
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - "Redis:ConnectionString=basketdb:6379"
+        - "EventBus:HostName=rabbitmq"
+    depends_on:
+        - basketdb
+        - rabbitmq
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+        - "8083:80"
+
+  ocelotapigateway:
+    container_name: "ocelotapigateway"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - basket.api
+      - catalog.api
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+      - "7000:80"
+
+
+  identity.api:
+    container_name: "identityapi"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:Default=Server=authendb,1433;Database=AuthServer;User Id=sa;Password=Abcd1234;Trusted_Connection=True;MultipleActiveResultSets=true"
+    depends_on:
+      - authendb
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+      - "8084:80"

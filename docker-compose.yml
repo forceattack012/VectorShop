@@ -12,18 +12,29 @@ services:
 
   authendb:
     image: mcr.microsoft.com/mssql/server
-  
+
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
     build:
       context: .
       dockerfile: Dockerfile.basketApi
 
-  ordering.api:
-    image: ${DOCKER_REGISTRY-}orderingapi
+  catalog.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
     build:
       context: .
-      dockerfile: Dockerfile.orderingApi
+      dockerfile: Dockerfile.catalogApi
 
 
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: Dockerfile.ApiGateway
 
+
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: Dockerfile.authenApi
