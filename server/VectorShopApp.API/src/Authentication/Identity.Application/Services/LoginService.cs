@@ -8,52 +8,47 @@ namespace Identity.Application.Services
     {
         private readonly ILoginRepository _loginRepository;
 
-        public Task<LoginResponse> Login(string userName, string password)
+        public LoginService(ILoginRepository loginRepository)
         {
-            throw new NotImplementedException();
+            _loginRepository = loginRepository;
         }
 
-        //public LoginService(ILoginRepository loginRepository)
-        //{
-        //    _loginRepository = loginRepository;
-        //}
+        public async Task<LoginResponse> Login(string userName, string password)
+        {
+            var response = new LoginResponse();
 
-        //public async Task<LoginResponse> Login(string userName, string password)
-        //{
-        //    var response = new LoginResponse();
+            try
+            {
+                var user = await _loginRepository.FindByUsername(userName);
 
-        //    try
-        //    {
-        //        var user = await _loginRepository.FindByUsername(userName);
+                if (await _loginRepository.ValidateCredentials(user, password))
+                {
+                    var props = new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30),
+                        AllowRefresh = true,
+                        RedirectUri = "",
+                    };
+                    await _loginRepository.SignInAsync(user, props);
 
-        //        if (await _loginRepository.ValidateCredentials(user, password))
-        //        {
-        //            var props = new AuthenticationProperties
-        //            {
-        //                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30),
-        //                AllowRefresh = true,
-        //                RedirectUri = "",
-        //            };
-        //            await _loginRepository.SignInAsync(user, props);
-
-        //            response.IsSuccess = true;
-        //            response.Error = "";
-        //        }
-        //        else
-        //        {
-        //            response.IsSuccess = false;
-        //            response.Error = "";
-        //        }
-        //        return response;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return new LoginResponse()
-        //        {
-        //            IsSuccess = false,
-        //            Error = ""
-        //        };
-        //    }
-        //}
+                    response.IsSuccess = true;
+                    response.Error = "";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Error = "";
+                }
+                return response;
+            }
+            catch (Exception)
+            {
+                return new LoginResponse()
+                {
+                    IsSuccess = false,
+                    Error = ""
+                };
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Identity.Domain.Entities;
+using Identity.Domain.Repositories;
 using Identity.Infrastucture.Constants;
 using Identity.Infrastucture.Data;
+using Identity.Infrastucture.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +34,11 @@ namespace Identity.Infrastucture.DependencyInjection
                 .AddInMemoryClients(Config.GetClients())
                 .AddAspNetIdentity<User>();
 
-            
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IRegisterRepository, RegisterRepository>();
+
+
 
             return services;
         }

@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Repositories;
+﻿using Identity.Domain.Entities;
+using Identity.Domain.Repositories;
 using IdentityServer4.Services;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
@@ -9,31 +10,31 @@ namespace Identity.Infrastucture.Repositories
 {
     public class LoginRepository : ILoginRepository
     {
-        private UserManager<TestUser> _userManager;
-        private SignInManager<TestUser> _signInManager;
+        private UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
 
-        public LoginRepository(UserManager<TestUser> userManager, SignInManager<TestUser> signInManager)
+        public LoginRepository(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        public async Task<TestUser> FindByUsername(string user)
+        public async Task<User> FindByUsername(string user)
         {
             return await _userManager.FindByNameAsync(user);
         }
 
-        public Task SignIn(TestUser user)
+        public Task SignIn(User user)
         {
             return _signInManager.SignInAsync(user, true);
         }
 
-        public async Task<bool> ValidateCredentials(TestUser user, string password)
+        public async Task<bool> ValidateCredentials(User user, string password)
         {
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
-        public Task SignInAsync(TestUser user, AuthenticationProperties properties, string authenticationMethod = null)
+        public Task SignInAsync(User user, AuthenticationProperties properties, string authenticationMethod = null)
         {
             return _signInManager.SignInAsync(user, properties, authenticationMethod);
         }

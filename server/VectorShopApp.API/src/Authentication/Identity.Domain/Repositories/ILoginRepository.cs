@@ -1,16 +1,16 @@
-﻿using IdentityServer4.Test;
+﻿using Identity.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 
 namespace Identity.Domain.Repositories
 {
     public interface ILoginRepository
     {
-        Task<bool> ValidateCredentials(TestUser user, string password);
+        Task<bool> ValidateCredentials(User user, string password);
 
-        Task<TestUser> FindByUsername(string user);
+        Task<User> FindByUsername(string user);
 
-        Task SignIn(TestUser user);
+        Task SignIn(User user);
 
-        Task SignInAsync(TestUser user, AuthenticationProperties properties, string authenticationMethod = null);
+        Task SignInAsync(User user, AuthenticationProperties properties, string authenticationMethod = null);
     }
 }

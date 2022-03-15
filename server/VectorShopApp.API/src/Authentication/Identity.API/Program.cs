@@ -35,6 +35,18 @@ app.MapPost("/api/authen/login", async (Login login,ILoginService _loginService)
     return Results.Ok(result);
 });
 
+app.MapPost("/api/authen/register", async (Register register, IRegisterService _registerService) =>
+{
+    if(string.IsNullOrEmpty(register.Email) || string.IsNullOrEmpty(register.Password))
+    {
+        return Results.BadRequest("Register Fail");
+    }
+    
+    var result = await _registerService.RegisterAsync(register.Email, register.Password);
+
+    return Results.Ok(result);
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
